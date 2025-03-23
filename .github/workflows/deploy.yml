@@ -3,7 +3,7 @@ name: Deploy Node.js App to EC2
 on:
   push:
     branches:
-      - main  # or your actual branch name
+      - main
 
 jobs:
   deploy:
@@ -19,10 +19,10 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "."  # this copies your whole repo
+          source: "hello-world-app/"  # repo root
           target: "/home/ubuntu/hello-world-app"
 
-      - name: SSH into EC2 and restart Node.js app
+      - name: SSH into EC2 and run Node.js
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
