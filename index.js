@@ -5,7 +5,7 @@ const PORT = 3000; // You can change this to any port you like
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello Dayanithi from EC2 Node.js!\n');
+  res.end('Hello world from EC2 Node.js!\n');
 });
 
 server.listen(PORT, () => {
