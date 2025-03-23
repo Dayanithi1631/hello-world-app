@@ -19,7 +19,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "hello-world-app/"  # repo root
+          source: "." # repo root
           target: "/home/ubuntu/hello-world-app"
 
       - name: SSH into EC2 and run Node.js
