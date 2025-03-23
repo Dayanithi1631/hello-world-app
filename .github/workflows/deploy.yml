@@ -1,16 +1,16 @@
-name: Deploy Node.js to EC2
+name: Deploy Node.js App to EC2
 
 on:
   push:
     branches:
-      - main
+      - main  # or your actual branch name
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout the code
         uses: actions/checkout@v3
 
       - name: Copy files to EC2
@@ -19,16 +19,17 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "."
-          target: "/home/ubuntu/hello-world-app/index.js"
+          source: "."  # this copies your whole repo
+          target: "/home/ubuntu/hello-world-app"
 
-      - name: SSH into EC2 and Restart Node App
+      - name: SSH into EC2 and restart Node.js app
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            cd /home/ubuntu/hello-world-app
+            npm install
             pkill node || true
-            cd ~/node-app
             nohup node index.js > output.log 2>&1 &
